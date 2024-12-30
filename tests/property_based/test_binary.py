@@ -268,7 +268,7 @@ def test_subtraction(gr, gr2, strandedness) -> None:
 
     print("bedtools_result")
     print(bedtools_df)
-    print("PyRanges result:")
+    print("pyranges1result:")
     print(result)
 
     compare_results(bedtools_df, result)

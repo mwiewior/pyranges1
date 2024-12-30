@@ -4,20 +4,20 @@ from typing import TYPE_CHECKING, Any, Final, Literal, Protocol, get_args
 import pandas as pd
 
 if TYPE_CHECKING:
-    from pyranges import PyRanges, RangeFrame
+    from pyranges1 import PyRanges, RangeFrame
 
 
 def return_pyranges_if_possible(
     method: Callable,
 ) -> Callable:
-    """Return a PyRanges object if possible."""
+    """Return a pyranges1object if possible."""
 
-    def wrapper(*args, **kwargs) -> "PyRanges | pd.DataFrame | pd.Series":
+    def wrapper(*args, **kwargs) -> "pyranges1| pd.DataFrame | pd.Series":
         # Call the original groupby method
         result = method(*args, **kwargs)
 
         if isinstance(result, pd.DataFrame) and set(GENOME_LOC_COLS).issubset(result.columns):
-            import pyranges as pr
+            import pyranges1 as pr
 
             return pr.PyRanges(result)
 
@@ -153,7 +153,7 @@ class BinaryOperation[T: "RangeFrame"](Protocol):
 class CombineIntervalColumnsOperation(Protocol):
     """A protocol for functions passed to combine_interval_columns.
 
-    A protocol indicating that the operation combines interval columns from a Pyranges object,
+    A protocol indicating that the operation combines interval columns from a pyranges1object,
     expecting four pd.Series as inputs (starts, ends, starts2, ends2), and returns a tuple of pd.Series (new_starts, new_ends).
     """
 

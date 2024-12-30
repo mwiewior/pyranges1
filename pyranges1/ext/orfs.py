@@ -7,8 +7,8 @@ from typing import Any, Literal
 import numpy as np
 import pandas as pd
 
-import pyranges as pr  # noqa: TCH001
-from pyranges.core.names import (
+import pyranges1 as pr  # noqa: TCH001
+from pyranges1.core.names import (
     CHROM_COL,
     END_COL,
     FORWARD_STRAND,
@@ -20,7 +20,7 @@ from pyranges.core.names import (
     TEMP_INDEX_COL,
     TEMP_LENGTH_COL,
 )
-from pyranges.core.pyranges_helpers import arg_to_list, mypy_ensure_pyranges
+from pyranges1.core.pyranges_helpers import arg_to_list, mypy_ensure_pyranges
 
 ## Joan Pallares started this function
 #  Marco Mariotti later optimized it, made it independent from pyranges
@@ -41,7 +41,7 @@ def calculate_frame(p: "pr.PyRanges", transcript_id: str | list[str], frame_col:
     """Calculate the frame of genomic intervals, assuming all are coding sequences (CDS), and add it as column.
 
     A stranded
-    After this, the input Pyranges will contain an added "Frame" column, which determines the nucleotide of the CDS
+    After this, the input pyranges1will contain an added "Frame" column, which determines the nucleotide of the CDS
     that is the first base of a codon.Resulting values are in range between 0 and 2 included.
     0 indicates that the first nucleotide of that interval is the first base of a codon,
     1 indicates the second base and 2 indicates the third base.
@@ -78,7 +78,7 @@ def calculate_frame(p: "pr.PyRanges", transcript_id: str | list[str], frame_col:
           2  |               1  +              52       90  t1
           3  |               2  -             101      130  t2
           4  |               2  -             201      218  t2
-    PyRanges with 5 rows, 5 columns, and 1 index columns.
+    pyranges1with 5 rows, 5 columns, and 1 index columns.
     Contains 2 chromosomes and 2 strands.
 
     >>> pr.orfs.calculate_frame(p, transcript_id=['transcript_id'])
@@ -90,7 +90,7 @@ def calculate_frame(p: "pr.PyRanges", transcript_id: str | list[str], frame_col:
           2  |               1  +              52       90  t1                     2
           3  |               2  -             101      130  t2                     2
           4  |               2  -             201      218  t2                     0
-    PyRanges with 5 rows, 6 columns, and 1 index columns.
+    pyranges1with 5 rows, 6 columns, and 1 index columns.
     Contains 2 chromosomes and 2 strands.
 
     """
@@ -139,7 +139,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
     chunk_size: int = 900,
     verbose: bool = False,
 ) -> "pr.PyRanges":
-    r"""Extend PyRanges intervals to form complete open reading frames.
+    r"""Extend pyranges1intervals to form complete open reading frames.
 
     The input intervals are extended their next Stop codon downstream, and to their leftmost Start codon upstream
     before encountering a Stop.
@@ -184,7 +184,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
     This function requires the library pyfaidx, it can be installed with
     ``conda install -c bioconda pyfaidx`` or ``pip install pyfaidx``.
 
-    Sorting the PyRanges is likely to improve the speed.
+    Sorting the pyranges1is likely to improve the speed.
     Intervals on the negative strand will be reverse complemented.
 
     Examples
@@ -195,7 +195,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object
     -------  ---  ------------  -------  -------  --------
           0  |    seq1               20       29  +
-    PyRanges with 1 rows, 4 columns, and 1 index columns.
+    pyranges1with 1 rows, 4 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     >>> #            *       ^       ^      ... ... ...          *       #  ... = p interval
@@ -215,7 +215,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object
     -------  ---  ------------  -------  -------  --------
           0  |    seq1                8       38  +
-    PyRanges with 1 rows, 4 columns, and 1 index columns.
+    pyranges1with 1 rows, 4 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     >>> ep.get_sequence("temp.fasta")
@@ -227,7 +227,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object             int64             int64
     -------  ---  ------------  -------  -------  --------  --------------  ----------------
           0  |    seq1                8       38  +                     12                 9
-    PyRanges with 1 rows, 6 columns, and 1 index columns.
+    pyranges1with 1 rows, 6 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     Extending only in one direction:
@@ -237,7 +237,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object
     -------  ---  ------------  -------  -------  --------
           0  |    seq1                8       29  +
-    PyRanges with 1 rows, 4 columns, and 1 index columns.
+    pyranges1with 1 rows, 4 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     With starts=[], any codon can be used as a start (i.e. ORFs defined as stop-delimited sequences):
@@ -248,7 +248,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object
     -------  ---  ------------  -------  -------  --------
           0  |    seq1                5       38  +
-    PyRanges with 1 rows, 4 columns, and 1 index columns.
+    pyranges1with 1 rows, 4 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     >>> ep.get_sequence("temp.fasta")
@@ -275,7 +275,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
     -------  ---  ------------  -------  -------  --------  --------
           0  |    seq2               19       23  -         a
           1  |    seq2               11       13  -         a
-    PyRanges with 2 rows, 5 columns, and 1 index columns.
+    pyranges1with 2 rows, 5 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     >>> np.get_sequence("temp1.fasta")
@@ -304,7 +304,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object             int64             int64
     -------  ---  ------------  -------  -------  --------  --------------  ----------------
           0  |    seq1                8       29  +                     12                 0
-    PyRanges with 1 rows, 6 columns, and 1 index columns.
+    pyranges1with 1 rows, 6 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     Showcasing keep_off_bounds:
@@ -315,7 +315,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object             int64             int64
     -------  ---  ------------  -------  -------  --------  --------------  ----------------
           0  |    seq1                8       41  +                     12                12
-    PyRanges with 1 rows, 6 columns, and 1 index columns.
+    pyranges1with 1 rows, 6 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
     >>> ep.get_sequence("temp2.fasta")
     0    ATGGTAATGGGCGCCGGGATTCCACAGAAAGTG
@@ -335,7 +335,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object             int64             int64
     -------  ---  ------------  -------  -------  --------  --------------  ----------------
           0  |    seq1                8       38  +                     12                 9
-    PyRanges with 1 rows, 6 columns, and 1 index columns.
+    pyranges1with 1 rows, 6 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     >>> ep = pr.orfs.extend_orfs(p, fasta_path="temp3.fasta", record_extensions=True, keep_off_bounds=True)
@@ -344,7 +344,7 @@ def extend_orfs(  # noqa: C901,PLR0912,PLR0915
       int64  |    object          int64    int64  object             int64             int64
     -------  ---  ------------  -------  -------  --------  --------------  ----------------
           0  |    seq1                2       38  +                     18                 9
-    PyRanges with 1 rows, 6 columns, and 1 index columns.
+    pyranges1with 1 rows, 6 columns, and 1 index columns.
     Contains 1 chromosomes and 1 strands.
 
     >>> ep.get_sequence("temp3.fasta")
@@ -661,7 +661,7 @@ def _get_seqs(df, fs, selector) -> None:
 
 
 def _correct_bounds(df, adjust=None) -> None:
-    """Similar to pyranges genome_bounds, inplace, but see below.
+    """Similar to pyranges1genome_bounds, inplace, but see below.
 
     but also: adjust the 5' or 3' end of intervals so they are multiples of 3
     and set boolean attribute __out_of_bounds.
@@ -690,7 +690,7 @@ def _correct_bounds(df, adjust=None) -> None:
 
 
 def _subseq_df(df, from_end, amount, selector) -> None:
-    """Similar to pyranges subseq but inplace."""
+    """Similar to pyranges1subseq but inplace."""
     sp = selector & (df.Strand == FORWARD_STRAND)
     sm = selector & (df.Strand == REVERSE_STRAND)
     if from_end == "5":

@@ -6,9 +6,9 @@ import pandas as pd
 from tabulate import tabulate
 
 if TYPE_CHECKING:
-    import pyranges as pr
+    import pyranges1 as pr
 
-from pyranges import options
+from pyranges1 import options
 
 
 @dataclass
@@ -59,7 +59,7 @@ def tostring(
     number_duplicated_indices = self.index.duplicated().sum()
     has_duplicated_index = number_duplicated_indices > 0
 
-    from pyranges import options
+    from pyranges1 import options
 
     max_rows_to_show = options.get_option("max_rows_to_show")
     max_column_names_to_show = options.get_option("max_column_names_to_show")

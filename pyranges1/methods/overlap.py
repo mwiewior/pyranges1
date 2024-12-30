@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from ncls import NCLS  # type: ignore[import]
 
-from pyranges.core.names import (
+from pyranges1.core.names import (
     END_COL,
     OVERLAP_ALL,
     OVERLAP_CONTAINMENT,
@@ -14,11 +14,11 @@ from pyranges.core.names import (
     VALID_OVERLAP_OPTIONS,
     VALID_OVERLAP_TYPE,
 )
-from pyranges.range_frame.range_frame import _mypy_ensure_rangeframe
+from pyranges1.range_frame.range_frame import _mypy_ensure_rangeframe
 
 if TYPE_CHECKING:
-    import pyranges as pr
-    from pyranges import RangeFrame
+    import pyranges1 as pr
+    from pyranges1 import RangeFrame
 
 
 def _overlap_indices(

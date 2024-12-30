@@ -1,11 +1,11 @@
 from typing import TYPE_CHECKING, Optional
 
-from pyranges.core.names import VALID_OVERLAP_TYPE, VALID_STRAND_BEHAVIOR_TYPE
-from pyranges.core.pyranges_helpers import mypy_ensure_pyranges
-from pyranges.methods import concat
+from pyranges1.core.names import VALID_OVERLAP_TYPE, VALID_STRAND_BEHAVIOR_TYPE
+from pyranges1.core.pyranges_helpers import mypy_ensure_pyranges
+from pyranges1.methods import concat
 
 if TYPE_CHECKING:
-    from pyranges.core.pyranges_main import PyRanges
+    from pyranges1.core.pyranges_main import PyRanges
 
 
 def count_overlaps(
@@ -15,19 +15,19 @@ def count_overlaps(
     by: list[str] | None = None,
     how: VALID_OVERLAP_TYPE = "all",
 ) -> "PyRanges":
-    """Count overlaps in multiple pyranges.
+    """Count overlaps in multiple pyranges1.
 
     Parameters
     ----------
     grs : dict of PyRanges
-        The PyRanges to use as queries.
+        The pyranges1to use as queries.
 
     features : PyRanges, default None
-        The PyRanges to use as subject in the query. If None, the PyRanges themselves are used as a query.
+        The pyranges1to use as subject in the query. If None, the pyranges1themselves are used as a query.
 
     strand_behavior : {None, "same", "opposite", False}, default None, i.e. auto
-        Whether to compare PyRanges on the same strand, the opposite or ignore strand
-        information. The default, None, means use "same" if both PyRanges are stranded,
+        Whether to compare pyranges1on the same strand, the opposite or ignore strand
+        information. The default, None, means use "same" if both pyranges1are stranded,
         otherwise ignore the strand information.
 
      how : {None, "all", "containment", "first"}, default None, i.e. all
@@ -43,7 +43,7 @@ def count_overlaps(
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> a = '''Chromosome Start End
     ... chr1    6    12
     ... chr1    10    20
@@ -71,7 +71,7 @@ def count_overlaps(
           1  |    chr1               10       20
           2  |    chr1               22       27
           3  |    chr1               24       30
-    PyRanges with 4 rows, 3 columns, and 1 index columns.
+    pyranges1with 4 rows, 3 columns, and 1 index columns.
     Contains 1 chromosomes.
     Name: b
       index  |    Chromosome      Start      End
@@ -79,7 +79,7 @@ def count_overlaps(
     -------  ---  ------------  -------  -------
           0  |    chr1               12       32
           1  |    chr1               14       30
-    PyRanges with 2 rows, 3 columns, and 1 index columns.
+    pyranges1with 2 rows, 3 columns, and 1 index columns.
     Contains 1 chromosomes.
     Name: c
       index  |    Chromosome      Start      End
@@ -88,7 +88,7 @@ def count_overlaps(
           0  |    chr1                8       15
           1  |    chr1               10       14
           2  |    chr1               32       34
-    PyRanges with 3 rows, 3 columns, and 1 index columns.
+    pyranges1with 3 rows, 3 columns, and 1 index columns.
     Contains 1 chromosomes.
 
     >>> pr.count_overlaps(grs)
@@ -104,7 +104,7 @@ def count_overlaps(
     9        |    chr1          27       30       1        2        0
     10       |    chr1          30       32       0        1        0
     11       |    chr1          32       34       0        0        1
-    PyRanges with 12 rows, 6 columns, and 1 index columns.
+    pyranges1with 12 rows, 6 columns, and 1 index columns.
     Contains 1 chromosomes.
 
     >>> gr = pr.PyRanges({"Chromosome": ["chr1"], "Start": [0], "End": [40]}).tile(10)
@@ -116,7 +116,7 @@ def count_overlaps(
           0  |    chr1               10       20
           0  |    chr1               20       30
           0  |    chr1               30       40
-    PyRanges with 4 rows, 3 columns, and 1 index columns (with 3 index duplicates).
+    pyranges1with 4 rows, 3 columns, and 1 index columns (with 3 index duplicates).
     Contains 1 chromosomes.
 
     >>> pr.count_overlaps(grs, gr)
@@ -127,14 +127,14 @@ def count_overlaps(
           0  |    chr1               10       20        5        5        4
           0  |    chr1               20       30        5        5        4
           0  |    chr1               30       40        5        5        4
-    PyRanges with 4 rows, 6 columns, and 1 index columns (with 3 index duplicates).
+    pyranges1with 4 rows, 6 columns, and 1 index columns (with 3 index duplicates).
     Contains 1 chromosomes.
 
     """
     concated = concat.concat(grs.values())
     features = concated.split(between=True) if features is None else features.copy()
 
-    from pyranges.methods.overlap import _count_overlaps
+    from pyranges1.methods.overlap import _count_overlaps
 
     for name, gr in grs.items():
         features = features.apply_pair(

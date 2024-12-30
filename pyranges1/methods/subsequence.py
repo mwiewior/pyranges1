@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
-from pyranges.core.names import (
+from pyranges1.core.names import (
     BY_ENTRY_IN_KWARGS,
     CHROM_COL,
     END_COL,
@@ -19,7 +19,7 @@ from pyranges.core.names import (
 )
 
 if TYPE_CHECKING:
-    from pyranges import PyRanges
+    from pyranges1 import PyRanges
 
 
 def _subseq(

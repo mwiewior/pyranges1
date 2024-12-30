@@ -8,9 +8,9 @@ from sorted_nearest import (  # type: ignore[import]
     nearest_previous_nonoverlapping,
 )
 
-import pyranges.core.empty
-from pyranges import PyRanges
-from pyranges.core.names import (
+import pyranges1.core.empty
+from pyranges1 import PyRanges
+from pyranges1.core.names import (
     BY_ENTRY_IN_KWARGS,
     END_COL,
     FORWARD_STRAND,
@@ -19,7 +19,7 @@ from pyranges.core.names import (
     START_COL,
     STRAND_COL,
 )
-from pyranges.methods.sort import sort_one_by_one
+from pyranges1.methods.sort import sort_one_by_one
 
 if TYPE_CHECKING:
     from numpy.typing import ArrayLike, NDArray
@@ -128,9 +128,9 @@ def _nearest(df: "DataFrame", df2: "DataFrame", **kwargs) -> pd.DataFrame:
         nearest_df, df_to_find_nearest_in = _overlapping_for_nearest(df, df2, suffix)
     else:
         df_to_find_nearest_in = df
-        nearest_df = pyranges.core.empty.empty()
+        nearest_df = pyranges1.core.empty.empty()
 
-    df = pyranges.core.empty.empty_df()
+    df = pyranges1.core.empty.empty_df()
     if not df_to_find_nearest_in.empty:
         df_to_find_nearest_in = sort_one_by_one(df_to_find_nearest_in, START_COL, END_COL)
         df2 = sort_one_by_one(df2, START_COL, END_COL)

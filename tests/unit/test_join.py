@@ -1,4 +1,4 @@
-import pyranges as pr
+import pyranges1 as pr
 from numpy import nan
 
 

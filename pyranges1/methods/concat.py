@@ -1,4 +1,4 @@
-"""Module for PyRanges concat method."""
+"""Module for pyranges1concat method."""
 
 from collections.abc import Iterable
 from typing import TYPE_CHECKING
@@ -6,16 +6,16 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 if TYPE_CHECKING:
-    from pyranges import RangeFrame
+    from pyranges1 import RangeFrame
 
 
 def concat[T: "RangeFrame"](grs: Iterable[T], *args, **kwargs) -> T:
-    """Concatenate PyRanges.
+    """Concatenate pyranges1.
 
     Parameters
     ----------
     grs: iterable of PyRanges
-        PyRanges to concatenate.
+        pyranges1to concatenate.
 
     args:
         Arguments passed to pandas.concat.
@@ -25,11 +25,11 @@ def concat[T: "RangeFrame"](grs: Iterable[T], *args, **kwargs) -> T:
 
     Returns
     -------
-    pyranges.PyRanges
+    pyranges1.PyRanges
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> gr1 = pr.example_data.f2
     >>> gr2 = pr.example_data.f1
     >>> pr.concat([gr1, gr2])
@@ -41,7 +41,7 @@ def concat[T: "RangeFrame"](grs: Iterable[T], *args, **kwargs) -> T:
           0  |    chr1                3        6  interval1        0  +
           1  |    chr1                5        7  interval2        0  -
           2  |    chr1                8        9  interval3        0  +
-    PyRanges with 5 rows, 6 columns, and 1 index columns (with 2 index duplicates).
+    pyranges1with 5 rows, 6 columns, and 1 index columns (with 2 index duplicates).
     Contains 1 chromosomes and 2 strands.
 
     >>> pr.concat([gr1, gr2.remove_strand()])
@@ -53,7 +53,7 @@ def concat[T: "RangeFrame"](grs: Iterable[T], *args, **kwargs) -> T:
           0  |    chr1                3        6  interval1        0  nan
           1  |    chr1                5        7  interval2        0  nan
           2  |    chr1                8        9  interval3        0  nan
-    PyRanges with 5 rows, 6 columns, and 1 index columns (with 2 index duplicates).
+    pyranges1with 5 rows, 6 columns, and 1 index columns (with 2 index duplicates).
     Contains 1 chromosomes and 2 strands (including non-genomic strands: nan).
 
     >>> r = pr.RangeFrame(gr1)
@@ -69,7 +69,7 @@ def concat[T: "RangeFrame"](grs: Iterable[T], *args, **kwargs) -> T:
 
     concatenated = input_class(pd.concat([pd.DataFrame(gr) for gr in grs]), *args, **kwargs)
 
-    from pyranges import RangeFrame
+    from pyranges1 import RangeFrame
 
     if isinstance(concatenated, RangeFrame):
         return input_class(concatenated)

@@ -3,10 +3,10 @@ from typing import TYPE_CHECKING
 import pandas as pd
 from ncls import NCLS  # type: ignore[import]
 
-from pyranges.core.names import TEMP_NUM_COL
+from pyranges1.core.names import TEMP_NUM_COL
 
 if TYPE_CHECKING:
-    from pyranges import RangeFrame
+    from pyranges1 import RangeFrame
 
 
 def _subtraction(df: "RangeFrame", df2: "RangeFrame", **_) -> pd.DataFrame:

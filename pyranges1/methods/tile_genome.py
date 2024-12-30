@@ -2,15 +2,15 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from pyranges.core.names import CHROM_COL, END_COL, START_COL
-from pyranges.core.pyranges_helpers import mypy_ensure_pyranges
+from pyranges1.core.names import CHROM_COL, END_COL, START_COL
+from pyranges1.core.pyranges_helpers import mypy_ensure_pyranges
 
 if TYPE_CHECKING:
-    from pyranges import PyRanges
+    from pyranges1 import PyRanges
 
 
 def tile_genome(
-    chromsizes: "PyRanges | pd.DataFrame | dict[str | int, int]",
+    chromsizes: "pyranges1| pd.DataFrame | dict[str | int, int]",
     tile_size: int,
     *,
     full_last_tile: bool = False,
@@ -22,7 +22,7 @@ def tile_genome(
     Parameters
     ----------
     chromsizes : dict or PyRanges
-        Dict or PyRanges describing the lengths of the chromosomes.
+        Dict or pyranges1describing the lengths of the chromosomes.
 
     tile_size : int
         Length of the tiles.
@@ -32,11 +32,11 @@ def tile_genome(
 
     See Also
     --------
-    pyranges.PyRanges.tile : split intervals into adjacent non-overlapping tiles.
+    pyranges1.pyranges1.tile : split intervals into adjacent non-overlapping tiles.
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> chromsizes = pr.example_data.chromsizes
     >>> chromsizes
     index    |    Chromosome    Start    End
@@ -51,7 +51,7 @@ def tile_genome(
     22       |    chr22         0        51304566
     23       |    chr21         0        48129895
     24       |    chrM          0        16571
-    PyRanges with 25 rows, 3 columns, and 1 index columns.
+    pyranges1with 25 rows, 3 columns, and 1 index columns.
     Contains 25 chromosomes.
 
     >>> pr.tile_genome(chromsizes,int(1e6))
@@ -67,7 +67,7 @@ def tile_genome(
     3111     |    chrY          57000000  58000000
     3112     |    chrY          58000000  59000000
     3113     |    chrY          59000000  59373566
-    PyRanges with 3114 rows, 3 columns, and 1 index columns.
+    pyranges1with 3114 rows, 3 columns, and 1 index columns.
     Contains 25 chromosomes.
 
     >>> pr.tile_genome(chromsizes,int(1e6), full_last_tile=True)
@@ -83,7 +83,7 @@ def tile_genome(
     3111     |    chrY          57000000  58000000
     3112     |    chrY          58000000  59000000
     3113     |    chrY          59000000  60000000
-    PyRanges with 3114 rows, 3 columns, and 1 index columns.
+    pyranges1with 3114 rows, 3 columns, and 1 index columns.
     Contains 25 chromosomes.
 
     """

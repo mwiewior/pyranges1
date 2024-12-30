@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from pyranges.core.names import (
+from pyranges1.core.names import (
     BY_ENTRY_IN_KWARGS,
     END_COL,
     REVERSE_STRAND,
@@ -13,7 +13,7 @@ from pyranges.core.names import (
 )
 
 if TYPE_CHECKING:
-    import pyranges as pr
+    import pyranges1 as pr
 
 
 TOTAL_EXON_LENGTH_COL = "__temp_total_exon_len__"

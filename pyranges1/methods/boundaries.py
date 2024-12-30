@@ -2,10 +2,10 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from pyranges.core.names import CHROM_COL, END_COL, START_COL, STRAND_COL
+from pyranges1.core.names import CHROM_COL, END_COL, START_COL, STRAND_COL
 
 if TYPE_CHECKING:
-    import pyranges as pr
+    import pyranges1 as pr
 
 
 def _bounds[T: ("pr.PyRanges", "pd.DataFrame")](df: T, **kwargs) -> pd.DataFrame:

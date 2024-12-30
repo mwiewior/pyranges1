@@ -5,9 +5,9 @@ import numpy as np
 import pandas as pd
 
 if typing.TYPE_CHECKING:
-    from pyranges import PyRanges
-from pyranges.core.names import CHROM_COL, END_COL, START_COL, STRAND_COL, VALID_GENOMIC_STRAND_INFO
-from pyranges.core.pyranges_helpers import mypy_ensure_pyranges
+    from pyranges1 import PyRanges
+from pyranges1.core.names import CHROM_COL, END_COL, START_COL, STRAND_COL, VALID_GENOMIC_STRAND_INFO
+from pyranges1.core.pyranges_helpers import mypy_ensure_pyranges
 
 # Three types of accessors:
 # 1. Columns or columns, rows
@@ -118,8 +118,8 @@ def chrom_or_strand_with_slice(pr: "PyRanges", key: tuple) -> "pd.Series[bool]":
     chrom_or_strand, loc = key
 
     # We can get a view with right chromosome, then match range only there, and reindex to original.
-    # Or we can interrogate the whole PyRanges for chromosome and range separately, then combine the boolean Series
-    # I timeit tested random pyranges up to 10^8 rows.
+    # Or we can interrogate the whole pyranges1for chromosome and range separately, then combine the boolean Series
+    # I timeit tested random pyranges1up to 10^8 rows.
     # The second was consistently faster, so here it is:
 
     # in ambyguous cases, we test is strand is + or -, otherwise we assume it's a chromosome

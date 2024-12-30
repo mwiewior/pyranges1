@@ -4,11 +4,11 @@ from collections.abc import Iterable
 import pandas as pd
 from pandas import Series
 
-from pyranges.core import names
-from pyranges.core.pyranges_helpers import mypy_ensure_pyranges
+from pyranges1.core import names
+from pyranges1.core.pyranges_helpers import mypy_ensure_pyranges
 
 if typing.TYPE_CHECKING:
-    from pyranges.core.pyranges_main import PyRanges
+    from pyranges1.core.pyranges_main import PyRanges
 
 
 def empty_df(
@@ -17,7 +17,7 @@ def empty_df(
     *,
     with_strand: bool = False,
 ) -> pd.DataFrame:
-    """Create an empty DataFrame that is valid as a PyRanges.
+    """Create an empty DataFrame that is valid as a pyranges1.
 
     Parameters
     ----------
@@ -28,7 +28,7 @@ def empty_df(
         Dtype for the columns.
 
     with_strand: bool, default False
-        Whether to create a PyRanges with strand information.
+        Whether to create a pyranges1with strand information.
 
     """
     empty = pd.DataFrame(
@@ -45,7 +45,7 @@ def empty(
     *,
     strand: bool = False,
 ) -> "PyRanges":
-    """Create an empty PyRanges.
+    """Create an empty pyranges1.
 
     Parameters
     ----------
@@ -56,7 +56,7 @@ def empty(
         Dtype for the columns.
 
     strand: bool, default False
-        Whether to create a PyRanges with strand information.
+        Whether to create a pyranges1with strand information.
 
     """
     return mypy_ensure_pyranges(empty_df(with_strand=strand, columns=columns, dtype=dtype))

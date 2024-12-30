@@ -2,7 +2,7 @@
 
 See Also
 --------
-pyranges.random : generate random PyRanges
+pyranges1.random : generate random PyRanges
 
 Examples
 --------
@@ -28,7 +28,7 @@ example_data.files              : A dict of basenames to file paths of available
       0  |    chr1                3        6  interval1        0  +
       1  |    chr1                5        7  interval2        0  -
       2  |    chr1                8        9  interval3        0  +
-PyRanges with 3 rows, 6 columns, and 1 index columns.
+pyranges1with 3 rows, 6 columns, and 1 index columns.
 Contains 1 chromosomes and 2 strands.
 
 
@@ -42,12 +42,12 @@ from importlib.resources import files
 from pathlib import Path
 from typing import ClassVar
 
-import pyranges as pr
+import pyranges1 as pr
 
 if typing.TYPE_CHECKING:
     import pyfaidx
 
-    from pyranges.core.pyranges_main import PyRanges
+    from pyranges1.core.pyranges_main import PyRanges
 
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
@@ -258,13 +258,13 @@ chr1	6	7	b	0	-"""
         Subset of the NCBI D.gyrociliatus assembly GCA_904063045.1.
 
         A pyfaidx.Fasta object is returned. If not installed, an exception is raised.
-        To retrieve the location of the fasta file, use pyranges.example_data.files['ncbi.fasta']
+        To retrieve the location of the fasta file, use pyranges1.example_data.files['ncbi.fasta']
         """
         try:
             import pyfaidx  # type: ignore[import]
         except ImportError:
             LOGGER.exception(
-                "To use this method, pyfaidx must be installed. To get just the fasta file path, use pyranges.example_data.files['ncbi.fasta']. Use `conda install -c bioconda pyfaidx` or `pip install pyfaidx` to install pyfaidx.",
+                "To use this method, pyfaidx must be installed. To get just the fasta file path, use pyranges1.example_data.files['ncbi.fasta']. Use `conda install -c bioconda pyfaidx` or `pip install pyfaidx` to install pyfaidx.",
             )
             sys.exit(1)
 

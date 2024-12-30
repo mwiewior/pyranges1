@@ -1,11 +1,11 @@
-"""Test that overriden pandas methods work and return PyRanges objects."""
+"""Test that overriden pandas methods work and return pyranges1objects."""
 
 import pandas as pd
 import pandas.core.groupby
 import pytest
 
-import pyranges as pr
-from pyranges.core.pyranges_groupby import PyRangesDataFrameGroupBy
+import pyranges1 as pr
+from pyranges1.core.pyranges_groupby import PyRangesDataFrameGroupBy
 
 
 def test_getitem() -> None:
@@ -196,7 +196,7 @@ def test_groupby_getitem_frame(gr) -> None:
     result = g[["Start", "Gene"]]
     assert isinstance(result, PyRangesDataFrameGroupBy)
 
-    # The Chromosome is now the index, so it is not a PyRanges object
+    # The Chromosome is now the index, so it is not a pyranges1object
     assert isinstance(result.agg("first"), pd.DataFrame)
 
 

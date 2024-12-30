@@ -3,7 +3,7 @@ from collections.abc import Iterable
 
 import pandas as pd
 
-import pyranges as pr  # noqa: F401
+import pyranges1 as pr  # noqa: F401
 
 # thanks to Devon Ryan at https://bioinformatics.stackexchange.com/questions/3583/what-is-the-fastest-way-to-get-the-reverse-complement-of-a-dna-sequence-in-pytho
 complement = str.maketrans("ACTGactg", "TGACtgac")
@@ -185,7 +185,7 @@ def translate(  # noqa: C901
         With cache=True, all 3-codon translations are cached (memory 10Mb, precompute ~ 230ms).
         Provide an int to define how many codons to cache; this is approx the speedup that will be obtained.
         Note: memory and precomputing grow exponentially with the N of codons cached;
-        You may use pyranges.seqs.clear_kmer_memory() to free memory.
+        You may use pyranges1.seqs.clear_kmer_memory() to free memory.
 
     Returns
     -------

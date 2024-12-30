@@ -8,11 +8,11 @@ import pandas as pd
 from natsort import natsorted  # type: ignore[import]
 from pandas.core.frame import DataFrame
 
-from pyranges.core.names import BIGWIG_SCORE_COL, CHROM_COL, END_COL, PANDAS_COMPRESSION_TYPE, START_COL
-from pyranges.core.pyranges_helpers import mypy_ensure_pyranges
-from pyranges.core.pyranges_main import PyRanges
+from pyranges1.core.names import BIGWIG_SCORE_COL, CHROM_COL, END_COL, PANDAS_COMPRESSION_TYPE, START_COL
+from pyranges1.core.pyranges_helpers import mypy_ensure_pyranges
+from pyranges1.core.pyranges_main import PyRanges
 
-GTF_COLUMNS_TO_PYRANGES = {
+GTF_COLUMNS_TO_pyranges1= {
     "seqname": "Chromosome",
     "source": "Source",
     "feature": "Feature",
@@ -23,8 +23,8 @@ GTF_COLUMNS_TO_PYRANGES = {
     "frame": "Frame",
 }
 
-GFF3_COLUMNS_TO_PYRANGES = GTF_COLUMNS_TO_PYRANGES.copy()
-GFF3_COLUMNS_TO_PYRANGES["phase"] = GFF3_COLUMNS_TO_PYRANGES.pop("frame")
+GFF3_COLUMNS_TO_pyranges1= GTF_COLUMNS_TO_pyranges1.copy()
+GFF3_COLUMNS_TO_PYRANGES["phase"] = GFF3_COLUMNS_TO_pyranges1.pop("frame")
 
 _ordered_gtf_columns = [
     "seqname",
@@ -164,13 +164,13 @@ def _to_bed(
 def _to_bigwig(
     self: PyRanges,
     path: None,
-    chromosome_sizes: PyRanges | pd.DataFrame | dict,
+    chromosome_sizes: pyranges1| pd.DataFrame | dict,
     value_col: str | None = None,
     *,
     divide: bool = False,
     rpm: bool = True,
     dryrun: bool = False,
-) -> PyRanges | None:
+) -> pyranges1| None:
     try:
         import pyBigWig  # type: ignore[import]
     except ModuleNotFoundError:
@@ -239,13 +239,13 @@ def _pyranges_to_gtf_like(
 
     if out_format == "gtf":
         all_columns = _ordered_gtf_columns[:-1]
-        # first: gff column to pyranges column
-        rename_columns = GFF3_COLUMNS_TO_PYRANGES.copy()
+        # first: gff column to pyranges1column
+        rename_columns = GFF3_COLUMNS_TO_pyranges1.copy()
         attribute_formatter = gtf_formatter
     elif out_format == "gff3":
         all_columns = _ordered_gff3_columns[:-1]
-        # first: gff column to pyranges column
-        rename_columns = GTF_COLUMNS_TO_PYRANGES.copy()
+        # first: gff column to pyranges1column
+        rename_columns = GTF_COLUMNS_TO_pyranges1.copy()
         attribute_formatter = gff3_formatter
     else:
         msg = f"Invalid output format: {out_format}. Must be one of 'gtf' or 'gff3'."
@@ -259,7 +259,7 @@ def _pyranges_to_gtf_like(
         raise ValueError(msg)
 
     rename_columns.update(map_cols)
-    # from here on, rename_columns is: pyranges column to gff column
+    # from here on, rename_columns is: pyranges1column to gff column
     rename_columns = {v: k for k, v in rename_columns.items()}
 
     df = df.rename(columns=rename_columns)

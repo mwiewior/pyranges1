@@ -6,10 +6,10 @@ from typing import TYPE_CHECKING
 import pandas as pd
 from natsort import natsorted  # type: ignore[import]
 
-from pyranges.core.pyranges_helpers import mypy_ensure_pyranges
+from pyranges1.core.pyranges_helpers import mypy_ensure_pyranges
 
 if TYPE_CHECKING:
-    from pyranges.core.pyranges_main import PyRanges
+    from pyranges1.core.pyranges_main import PyRanges
 
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ LOGGER.setLevel(logging.INFO)
 
 
 def from_string(s: str) -> "PyRanges":
-    """Create a PyRanges from multiline string.
+    """Create a pyranges1from multiline string.
 
     Parameters
     ----------
@@ -26,7 +26,7 @@ def from_string(s: str) -> "PyRanges":
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> s = '''Chromosome      Start        End Strand
     ... chr1  246719402  246719502      +
     ... chr5   15400908   15401008      +
@@ -43,7 +43,7 @@ def from_string(s: str) -> "PyRanges":
           2  |    chr9           68366534   68366634  +
           3  |    chr14          79220091   79220191  +
           4  |    chr14         103456471  103456571  -
-    PyRanges with 5 rows, 4 columns, and 1 index columns.
+    pyranges1with 5 rows, 4 columns, and 1 index columns.
     Contains 4 chromosomes and 2 strands.
 
     """
@@ -55,7 +55,7 @@ def from_string(s: str) -> "PyRanges":
 
 
 def read_bed(f: Path, /, nrows: int | None = None) -> "PyRanges":
-    """Return bed file as PyRanges.
+    """Return bed file as pyranges1.
 
     This is a reader for files that follow the bed format. They can have from
     3-12 columns which will be named like so:
@@ -73,7 +73,7 @@ def read_bed(f: Path, /, nrows: int | None = None) -> "PyRanges":
 
     Notes
     -----
-    If you just want to create a PyRanges from a tab-delimited bed-like file,
+    If you just want to create a pyranges1from a tab-delimited bed-like file,
     use `pr.PyRanges(pandas.read_table(f))` instead.
 
     Returns
@@ -83,7 +83,7 @@ def read_bed(f: Path, /, nrows: int | None = None) -> "PyRanges":
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> path = pr.example_data.files["aorta.bed"]
     >>> pr.read_bed(path, nrows=5)
       index  |    Chromosome      Start      End  Name        Score  Strand
@@ -94,7 +94,7 @@ def read_bed(f: Path, /, nrows: int | None = None) -> "PyRanges":
           2  |    chr1             9951    10150  H3K27me3        8  -
           3  |    chr1             9953    10152  H3K27me3        5  +
           4  |    chr1             9978    10177  H3K27me3        7  -
-    PyRanges with 5 rows, 6 columns, and 1 index columns.
+    pyranges1with 5 rows, 6 columns, and 1 index columns.
     Contains 1 chromosomes and 2 strands.
 
     """
@@ -141,7 +141,7 @@ def read_bam(
     *,
     sparse: bool = True,
 ) -> "PyRanges":
-    """Return bam file as PyRanges.
+    """Return bam file as pyranges1.
 
     Parameters
     ----------
@@ -176,7 +176,7 @@ def read_bam(
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> path = pr.example_data.files["smaller.bam"]
     >>> pr.read_bam(path)
     index    |    Chromosome    Start     End       Strand      Flag
@@ -191,7 +191,7 @@ def read_bam(
     97       |    chr1          18800901  18800926  +           0
     98       |    chr1          18855123  18855148  -           16
     99       |    chr1          19373470  19373495  +           0
-    PyRanges with 100 rows, 5 columns, and 1 index columns.
+    pyranges1with 100 rows, 5 columns, and 1 index columns.
     Contains 1 chromosomes and 2 strands.
 
     """
@@ -308,15 +308,15 @@ def read_gtf(
     Note
     ----
     The GTF format encodes both Start and End as 1-based included.
-    PyRanges encodes intervals as 0-based, Start included and End excluded.
+    pyranges1encodes intervals as 0-based, Start included and End excluded.
 
     See Also
     --------
-    pyranges.read_gff3 : read files in the General Feature Format
+    pyranges1.read_gff3 : read files in the General Feature Format
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> from tempfile import NamedTemporaryFile
     >>> contents = ['#!genome-build GRCh38.p10']
     >>> contents.append('1\thavana\tgene\t11869\t14409\t.\t+\t.\tgene_id "ENSG00000223972"; gene_version "5"; gene_name "DDX11L1"; gene_source "havana"; gene_biotype "transcribed_unprocessed_pseudogene";')
@@ -330,7 +330,7 @@ def read_gtf(
     -------  ---  ------------  --------  ----------  -------  -------  --------  ----------  --------  ---------------  -----
           0  |               1  havana    gene          11868    14409  .         +           .         ENSG00000223972  ...
           1  |               1  havana    transcript    11868    14409  .         +           .         ENSG00000223972  ...
-    PyRanges with 2 rows, 20 columns, and 1 index columns. (11 columns not shown: "gene_version", "gene_name", "gene_source", ...).
+    pyranges1with 2 rows, 20 columns, and 1 index columns. (11 columns not shown: "gene_version", "gene_name", "gene_source", ...).
     Contains 1 chromosomes and 1 strands.
 
     """
@@ -559,7 +559,7 @@ def read_gff3(
     *,
     full: bool = True,
 ) -> "PyRanges":
-    """Read files in the General Feature Format into a PyRanges.
+    """Read files in the General Feature Format into a pyranges1.
 
     Parameters
     ----------
@@ -579,12 +579,12 @@ def read_gff3(
     Notes
     -----
     The gff3 format encodes both Start and End as 1-based included.
-    PyRanges (and also the DF returned by this function, if as_df=True), instead
+    pyranges1(and also the DF returned by this function, if as_df=True), instead
     encodes intervals as 0-based, Start included and End excluded.
 
     See Also
     --------
-    pyranges.read_gtf : read files in the Gene Transfer Format
+    pyranges1.read_gtf : read files in the Gene Transfer Format
 
     """
     path = Path(f)
@@ -625,7 +625,7 @@ def read_gff3(
 
 
 def read_bigwig(f: str | Path) -> "PyRanges":
-    """Read bigwig files into a PyRanges.
+    """Read bigwig files into a pyranges1.
 
     Parameters
     ----------
@@ -642,7 +642,7 @@ def read_bigwig(f: str | Path) -> "PyRanges":
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> path = pr.example_data.files["bigwig.bw"]
     >>> pr.read_bigwig(path)
       index  |      Chromosome    Start      End      Value
@@ -654,7 +654,7 @@ def read_bigwig(f: str | Path) -> "PyRanges":
           3  |               1      100      150        1.4
           4  |               1      150      151        1.5
           5  |              10      200      300        2
-    PyRanges with 6 rows, 4 columns, and 1 index columns.
+    pyranges1with 6 rows, 4 columns, and 1 index columns.
     Contains 2 chromosomes.
 
 

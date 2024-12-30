@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
-from pyranges.core import names
-from pyranges.core.example_data import example_data
-from pyranges.core.pyranges_helpers import mypy_ensure_pyranges
+from pyranges1.core import names
+from pyranges1.core.example_data import example_data
+from pyranges1.core.pyranges_helpers import mypy_ensure_pyranges
 
 if TYPE_CHECKING:
-    import pyranges as pr
+    import pyranges1 as pr
 
 
 def random(
@@ -19,7 +19,7 @@ def random(
     *,
     strand: bool = True,
 ) -> "pr.PyRanges":
-    """Return PyRanges with random intervals.
+    """Return pyranges1with random intervals.
 
     Parameters
     ----------
@@ -40,7 +40,7 @@ def random(
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> pr.random(seed=12345)
     index    |    Chromosome    Start      End        Strand
     int64    |    object        int64      int64      object
@@ -54,7 +54,7 @@ def random(
     997      |    chr6          80054552   80054652   +
     998      |    chrX          66474125   66474225   +
     999      |    chr7          69941721   69941821   -
-    PyRanges with 1000 rows, 4 columns, and 1 index columns.
+    pyranges1with 1000 rows, 4 columns, and 1 index columns.
     Contains 24 chromosomes and 2 strands.
 
     """

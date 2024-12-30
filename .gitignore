@@ -32,3 +32,4 @@ dist/
 
 pyranges-*/
 *.bw
+.idea

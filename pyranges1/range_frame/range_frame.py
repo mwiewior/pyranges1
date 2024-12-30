@@ -4,7 +4,7 @@ from typing import Any
 
 import pandas as pd
 
-from pyranges.core.names import (
+from pyranges1.core.names import (
     BY_ENTRY_IN_KWARGS,
     PRESERVE_INDEX_COLUMN,
     RANGE_COLS,
@@ -19,9 +19,9 @@ from pyranges.core.names import (
     BinaryOperation,
     UnaryOperation,
 )
-from pyranges.core.pyranges_helpers import arg_to_list
-from pyranges.core.tostring import tostring
-from pyranges.range_frame.range_frame_validator import InvalidRangesReason
+from pyranges1.core.pyranges_helpers import arg_to_list
+from pyranges1.core.tostring import tostring
+from pyranges1.range_frame.range_frame_validator import InvalidRangesReason
 
 
 def should_skip_operation(df: pd.DataFrame, *, df2: pd.DataFrame, skip_if_empty: SKIP_IF_DF_EMPTY_TYPE) -> bool:
@@ -38,11 +38,11 @@ def should_skip_operation(df: pd.DataFrame, *, df2: pd.DataFrame, skip_if_empty:
 class RangeFrame(pd.DataFrame):
     """Class for range based operations.
 
-    A table with Start and End columns. Parent class of PyRanges. Subclass of pandas DataFrame.
+    A table with Start and End columns. Parent class of pyranges1. Subclass of pandas DataFrame.
     """
 
     def __new__(cls, *args, **kwargs) -> "RangeFrame | pd.DataFrame":  # type: ignore[misc]
-        """Create a new instance of a PyRanges object."""
+        """Create a new instance of a pyranges1object."""
         # __new__ is a special static method used for creating and
         # returning a new instance of a class. It is called before
         # __init__ and is typically used in scenarios requiring
@@ -115,7 +115,7 @@ class RangeFrame(pd.DataFrame):
 
         Examples
         --------
-        >>> import pyranges as pr
+        >>> import pyranges1 as pr
         >>> r = pr.RangeFrame({"Start": [1, 1, 2, 2], "End": [3, 3, 5, 4], "Id": list("abad")})
         >>> r
           index  |      Start      End  Id
@@ -172,7 +172,7 @@ class RangeFrame(pd.DataFrame):
         RangeFrame with 1 rows, 3 columns, and 1 index columns.
 
         """
-        from pyranges.methods.overlap import _overlap
+        from pyranges1.methods.overlap import _overlap
 
         return self.apply_pair(other, _overlap, how=how, by=by)
 
@@ -257,7 +257,7 @@ class RangeFrame(pd.DataFrame):
 
         Examples
         --------
-        >>> import pyranges as pr
+        >>> import pyranges1 as pr
         >>> r = pr.RangeFrame({"Start": [1, 1, 4, 2], "End": [3, 3, 5, 4], "Id": list("abad")})
         >>> bad, ok = r, r.copy()
         >>> bad.loc[0, "Start"] = -1  # make r invalid
@@ -265,7 +265,7 @@ class RangeFrame(pd.DataFrame):
         Traceback (most recent call last):
         ...
         ValueError: Cannot perform function on invalid ranges (function was bad.apply_pair(ok, lambda x, y: x)).
-        >>> from pyranges.methods.overlap import _overlap
+        >>> from pyranges1.methods.overlap import _overlap
         >>> ok.apply_pair(bad, _overlap)
         Traceback (most recent call last):
         ...

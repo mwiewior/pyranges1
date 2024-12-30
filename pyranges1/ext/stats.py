@@ -13,8 +13,8 @@ import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame, Series
 
-import pyranges as pr
-from pyranges.core.names import (
+import pyranges1 as pr
+from pyranges1.core.names import (
     CHROM_COL,
     END_COL,
     GENOME_LOC_COLS,
@@ -22,18 +22,18 @@ from pyranges.core.names import (
     STRAND_BEHAVIOR_SAME,
     VALID_STRAND_BEHAVIOR_TYPE,
 )
-from pyranges.core.pyranges_helpers import (
+from pyranges1.core.pyranges_helpers import (
     mypy_ensure_pyranges,
     strand_behavior_from_validated_use_strand,
     use_strand_from_validated_strand_behavior,
     validate_and_convert_strand_behavior,
 )
-from pyranges.methods.statistics import _relative_distance
+from pyranges1.methods.statistics import _relative_distance
 
 if TYPE_CHECKING:
     from numpy.typing import NDArray
 
-    from pyranges import PyRanges
+    from pyranges1 import PyRanges
 
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ GenomeType = dict[str, int] | pd.DataFrame | None
 LabelsType = list[str] | list[int]
 
 
-def _chromsizes_as_int(chromsizes: "PyRanges | DataFrame | dict[Any, int]") -> int:
+def _chromsizes_as_int(chromsizes: "pyranges1| DataFrame | dict[Any, int]") -> int:
     if isinstance(chromsizes, dict):
         _chromsizes = sum(chromsizes.values())
     elif isinstance(chromsizes, pd.DataFrame | pr.PyRanges):
@@ -137,7 +137,7 @@ def fdr(p_vals: Series) -> Series:
 
     Examples
     --------
-    >>> import pyranges as pr
+    >>> import pyranges1 as pr
     >>> d = {'Chromosome': ['chr3', 'chr6', 'chr13'], 'Start': [146419383, 39800100, 24537618], 'End': [146419483, 39800200, 24537718], 'Strand': ['-', '+', '-'], 'PValue': [0.0039591368855297175, 0.0037600512992788937, 0.0075061166500909205]}
     >>> gr = pr.PyRanges(d)
     >>> gr
@@ -147,7 +147,7 @@ def fdr(p_vals: Series) -> Series:
           0  |    chr3          146419383  146419483  -         0.00395914
           1  |    chr6           39800100   39800200  +         0.00376005
           2  |    chr13          24537618   24537718  -         0.00750612
-    PyRanges with 3 rows, 5 columns, and 1 index columns.
+    pyranges1with 3 rows, 5 columns, and 1 index columns.
     Contains 3 chromosomes and 2 strands.
 
     >>> gr["FDR"] = pr.stats.fdr(gr.PValue)
@@ -158,7 +158,7 @@ def fdr(p_vals: Series) -> Series:
           0  |    chr3          146419383  146419483  -         0.00395914  0.00593871
           1  |    chr6           39800100   39800200  +         0.00376005  0.0112802
           2  |    chr13          24537618   24537718  -         0.00750612  0.00750612
-    PyRanges with 3 rows, 6 columns, and 1 index columns.
+    pyranges1with 3 rows, 6 columns, and 1 index columns.
     Contains 3 chromosomes and 2 strands.
 
     """
@@ -250,15 +250,15 @@ def mcc(
     grs: list["PyRanges"],
     *,
     labels: list[str],
-    genome: "PyRanges | pd.DataFrame | dict[str, int] | None" = None,
+    genome: "pyranges1| pd.DataFrame | dict[str, int] | None" = None,
     use_strand: bool = False,
 ) -> DataFrame:
-    """Compute Matthew's correlation coefficient for PyRanges overlaps.
+    """Compute Matthew's correlation coefficient for pyranges1overlaps.
 
     Parameters
     ----------
     grs : list of PyRanges
-        PyRanges to compare.
+        pyranges1to compare.
 
     genome : DataFrame or dict, default None
         Should contain chromosome sizes. By default, end position of the
@@ -266,7 +266,7 @@ def mcc(
         it is recommended to use a genome.
 
     labels : list of str, default None
-        Names to give the PyRanges in the output.
+        Names to give the pyranges1in the output.
 
     use_strand : bool, default False
         Whether to compute correlations per strand.
@@ -299,7 +299,7 @@ def mcc(
     _genome, genome_length, _labels = _process_genome_data(grs, labels=labels, genome=genome)
 
     if use_strand and not all(gr.strand_valid for gr in grs):
-        msg = "use_strand=True but one or more PyRanges have invalid strand information."
+        msg = "use_strand=True but one or more pyranges1have invalid strand information."
         raise AssertionError(msg)
 
     # remove all non-loc columns before computation
@@ -427,8 +427,8 @@ def rowbased_spearman(x: ndarray, y: ndarray) -> ndarray:
 
     See Also
     --------
-    pyranges.stats.rowbased_pearson : fast row-based Pearson's correlation.
-    pyranges.stats.fdr : correct for multiple testing
+    pyranges1.stats.rowbased_pearson : fast row-based Pearson's correlation.
+    pyranges1.stats.fdr : correct for multiple testing
 
     Examples
     --------
@@ -469,8 +469,8 @@ def rowbased_pearson(x: ndarray | DataFrame, y: ndarray | DataFrame) -> ndarray:
 
     See Also
     --------
-    pyranges.stats.rowbased_spearman : fast row-based Spearman's correlation.
-    pyranges.stats.fdr : correct for multiple testing
+    pyranges1.stats.rowbased_spearman : fast row-based Spearman's correlation.
+    pyranges1.stats.fdr : correct for multiple testing
 
     Examples
     --------
@@ -572,7 +572,7 @@ def simes(
     pcol: str,
     *,
     keep_position: bool = False,
-) -> "pr.PyRanges | DataFrame":
+) -> "pr.pyranges1| DataFrame":
     """Apply Simes method for giving dependent events a p-value.
 
     Parameters
@@ -614,7 +614,7 @@ def simes(
           3  |               2       60       65  -         FOX         0.05
           4  |               2       70       75  -         FOX         1e-07
           5  |               2       80       90  -         FOX         2.1e-06
-    PyRanges with 6 rows, 6 columns, and 1 index columns.
+    pyranges1with 6 rows, 6 columns, and 1 index columns.
     Contains 2 chromosomes and 2 strands.
 
     >>> simes = pr.stats.simes(gr, "Gene", "PValue")
@@ -629,7 +629,7 @@ def simes(
     -------  ---  ------------  -------  -------  ---------  --------  --------
           0  |               2       60       90     1e-07   -         FOX
           1  |               1       10       40     0.0001  +         P53
-    PyRanges with 2 rows, 6 columns, and 1 index columns.
+    pyranges1with 2 rows, 6 columns, and 1 index columns.
     Contains 2 chromosomes and 2 strands.
 
     """
@@ -672,7 +672,7 @@ def simes(
         columns = list(simes.columns)
         columns.append(columns[0])
         del columns[0]
-        _simes: "PyRanges | DataFrame"
+        _simes: "pyranges1| DataFrame"
         _simes = mypy_ensure_pyranges(simes[columns])
     else:
         _simes = sdf.groupby(by).Simes.min().reset_index()
@@ -681,13 +681,13 @@ def simes(
 
 
 ####################################################################################################
-# methods available at pr.stats and at pr.PyRanges.stats: (see usages of StatsManager for how to)
+# methods available at pr.stats and at pr.pyranges1.stats: (see usages of StatsManager for how to)
 
 
 def forbes(
     p: "PyRanges",
     other: "PyRanges",
-    chromsizes: "PyRanges | DataFrame | dict[Any, int]",
+    chromsizes: "pyranges1| DataFrame | dict[Any, int]",
     strand_behavior: VALID_STRAND_BEHAVIOR_TYPE = "auto",
 ) -> float:
     """Compute Forbes coefficient.
@@ -710,7 +710,7 @@ def forbes(
 
     strand_behavior : {"auto", "same", "opposite", "ignore"}, default "auto"
         Whether to consider overlaps of intervals on the same strand, the opposite or ignore strand
-        information. The default, "auto", means use "same" if both PyRanges are stranded (see .strand_valid)
+        information. The default, "auto", means use "same" if both pyranges1are stranded (see .strand_valid)
         otherwise ignore the strand information.
 
     Returns
@@ -721,7 +721,7 @@ def forbes(
 
     See Also
     --------
-    pyranges.stats.jaccard : compute the jaccard coefficient
+    pyranges1.stats.jaccard : compute the jaccard coefficient
 
     Examples
     --------
@@ -761,7 +761,7 @@ def jaccard(
 
     strand_behavior : {"auto", "same", "opposite", "ignore"}, default "auto"
         Whether to consider overlaps of intervals on the same strand, the opposite or ignore strand
-        information. The default, "auto", means use "same" if both PyRanges are stranded (see .strand_valid)
+        information. The default, "auto", means use "same" if both pyranges1are stranded (see .strand_valid)
         otherwise ignore the strand information.
 
     Returns
@@ -772,7 +772,7 @@ def jaccard(
 
     See Also
     --------
-    pyranges.stats.forbes : compute the forbes coefficient
+    pyranges1.stats.forbes : compute the forbes coefficient
 
     Examples
     --------
@@ -828,8 +828,8 @@ def relative_distance(p: "PyRanges", other: "PyRanges", **_) -> DataFrame:
 
     See Also
     --------
-    pyranges.stats.jaccard : compute the jaccard coefficient
-    pyranges.stats.forbes : compute the forbes coefficient
+    pyranges1.stats.jaccard : compute the jaccard coefficient
+    pyranges1.stats.forbes : compute the forbes coefficient
 
     Examples
     --------

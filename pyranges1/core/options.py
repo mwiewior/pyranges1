@@ -1,16 +1,16 @@
-# below: Class to manage PyRanges options
+# below: Class to manage pyranges1options
 # purposedly not using a docstring to avoid it being included in the docs
 
 
 class PyRangesOptions:
     def __init__(self) -> None:
         self.options_in_use = {
-            "max_rows_to_show": (8, "the max number of rows to show in PyRanges repr"),
+            "max_rows_to_show": (8, "the max number of rows to show in pyranges1repr"),
             "max_column_names_to_show": (
                 3,
-                "how many columns listed in PyRanges repr when not all fit the screen width",
+                "how many columns listed in pyranges1repr when not all fit the screen width",
             ),
-            "console_width": (None, "console width, affecting PyRanges representation (None for auto)"),
+            "console_width": (None, "console width, affecting pyranges1representation (None for auto)"),
         }
         self.options_default = self.options_in_use.copy()
 
@@ -19,7 +19,7 @@ class PyRangesOptions:
 
         Set one or more options.
 
-        Run pyranges.options.display_options() to see available options and their current values.
+        Run pyranges1.options.display_options() to see available options and their current values.
 
         Parameters
         ----------
@@ -31,7 +31,7 @@ class PyRangesOptions:
 
         Examples
         --------
-        >>> import pyranges as pr
+        >>> import pyranges1 as pr
         >>> pr.options.set_option('max_rows_to_show', 8)
 
 
@@ -57,7 +57,7 @@ class PyRangesOptions:
 
         Examples
         --------
-        >>> import pyranges as pr
+        >>> import pyranges1 as pr
         >>> pr.options.get_option("max_rows_to_show")
         8
 
@@ -72,7 +72,7 @@ class PyRangesOptions:
 
         Examples
         --------
-        >>> import pyranges as pr
+        >>> import pyranges1 as pr
         >>> pr.options.get_option('max_rows_to_show')
         8
 
@@ -92,11 +92,11 @@ class PyRangesOptions:
 
         Examples
         --------
-        >>> import pyranges as pr
+        >>> import pyranges1 as pr
         >>> print(pr.options.display_options())
-        max_rows_to_show         :   8 (the max number of rows to show in PyRanges repr)
-        max_column_names_to_show :   3 (how many columns listed in PyRanges repr when not all fit the screen width)
-        console_width            : 120 (console width, affecting PyRanges representation (None for auto))
+        max_rows_to_show         :   8 (the max number of rows to show in pyranges1repr)
+        max_column_names_to_show :   3 (how many columns listed in pyranges1repr when not all fit the screen width)
+        console_width            : 120 (console width, affecting pyranges1representation (None for auto))
 
         """
         max_len_k = max(len(k) for k in self.options_in_use)

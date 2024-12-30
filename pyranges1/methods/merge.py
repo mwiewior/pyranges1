@@ -1,7 +1,7 @@
 import pandas as pd
 from sorted_nearest import find_clusters  # type: ignore[import]
 
-from pyranges.core.names import END_COL, START_COL
+from pyranges1.core.names import END_COL, START_COL
 
 
 def _merge(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
@@ -15,7 +15,7 @@ def _merge(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
 
     # important: sorted_nearest interprets slack differently than pyranges
     # 0 slack in sorted_nearest means that bookended intervals are considered overlapping
-    # together, while in pyranges it means that they are not.
+    # together, while in pyranges1it means that they are not.
     starts, ends, number = find_clusters(cdf.Start.values, cdf.End.values, slack - 1)
 
     by_values = df.head(1).squeeze()[by].to_dict()

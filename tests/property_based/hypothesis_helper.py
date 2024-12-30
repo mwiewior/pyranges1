@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from hypothesis.extra.pandas import column, data_frames, indexes
 
-import pyranges as pr
-from pyranges import PyRanges
+import pyranges1 as pr
+from pyranges1 import PyRanges
 
 max_examples = 15
 slow_max_examples = 5
@@ -109,7 +109,7 @@ def dfs_min2(draw):  # nosec
     return PyRanges(df)
     # gr = PyRanges(df)
 
-    # do not sort like this, use pyranges sort
+    # do not sort like this, use pyranges1sort
     # np.random.seed(draw(st.integers(min_value=0, max_value=int(1e6))))
     # gr.df = df.reindex(np.random.permutation(df.index.values))
 
@@ -143,7 +143,7 @@ def dfs_no_min(draw):  # nosec
     return PyRanges(df)
     # gr = PyRanges(df)
 
-    # do not sort like this, use pyranges sort
+    # do not sort like this, use pyranges1sort
     # np.random.seed(draw(st.integers(min_value=0, max_value=int(1e6))))
     # gr.df = df.reindex(np.random.permutation(df.index.values))
 
@@ -171,7 +171,7 @@ def dfs_min_with_id(draw):  # nosec
     # raise
     # gr = PyRanges(df)
 
-    # do not sort like this, use pyranges sort
+    # do not sort like this, use pyranges1sort
     # np.random.seed(draw(st.integers(min_value=0, max_value=int(1e6))))
     # gr.df = df.reindex(np.random.permutation(df.index.values))
 
@@ -200,7 +200,7 @@ def dfs_min_with_gene_id(draw):  # nosec
     # raise
     # gr = PyRanges(df)
 
-    # do not sort like this, use pyranges sort
+    # do not sort like this, use pyranges1sort
     # np.random.seed(draw(st.integers(min_value=0, max_value=int(1e6))))
     # gr.df = df.reindex(np.random.permutation(df.index.values))
 

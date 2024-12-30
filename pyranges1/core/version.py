@@ -6,7 +6,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-import pyranges as pr
+import pyranges1 as pr
 
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ __version__ = importlib.metadata.version("pyranges1")  # note: update when pyran
 
 
 def version_info() -> None:
-    """Print version info for pyranges and its dependencies.
+    """Print version info for pyranges1and its dependencies.
 
     Used for debugging.
     """
@@ -28,7 +28,7 @@ def version_info() -> None:
         _version_info[library] = version
 
     version_info = {
-        "pyranges version": pr.__version__,
+        "pyranges1version": pr.__version__,
         "pandas version": pd.__version__,
         "numpy version": np.__version__,
         "python version": ".".join([str(s) for s in sys.version_info]),

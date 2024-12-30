@@ -1,6 +1,6 @@
 import pandas as pd
 
-import pyranges as pr
+import pyranges1 as pr
 import contextlib
 import os
 

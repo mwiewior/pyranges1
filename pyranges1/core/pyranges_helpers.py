@@ -2,7 +2,7 @@ import inspect
 import warnings
 from typing import TYPE_CHECKING
 
-from pyranges.core.names import (
+from pyranges1.core.names import (
     CHROM_COL,
     REVERSE_STRAND,
     STRAND_BEHAVIOR_AUTO,
@@ -22,13 +22,13 @@ from pyranges.core.names import (
 if TYPE_CHECKING:
     import pandas as pd
 
-    from pyranges import PyRanges
+    from pyranges1 import PyRanges
 
 
 def validate_and_convert_use_strand(self: "PyRanges", use_strand: VALID_USE_STRAND_TYPE) -> bool:
     """Validate and convert strand option.
 
-    Used inside various methods accepting a PyRanges as input. It processes use_strand option provided by the user upon
+    Used inside various methods accepting a pyranges1 as input. It processes use_strand option provided by the user upon
     calling the function. This function validates the option and converts it to a boolean value.
 
     If use_strand is True, an error will be raised if the Strand column is missing or invalid.
@@ -38,7 +38,7 @@ def validate_and_convert_use_strand(self: "PyRanges", use_strand: VALID_USE_STRA
     Parameters
     ----------
     self : PyRanges
-        PyRanges object to be validated.
+        pyranges1object to be validated.
 
     use_strand : {'auto', True, False}
         The use_strand option provided by the user.
@@ -76,7 +76,7 @@ def validate_and_convert_strand_behavior(
 ) -> STRICT_STRAND_BEHAVIOR_TYPE:
     """Validate and convert strand behavior.
 
-    Used inside various methods accepting two PyRanges as input. It processes strand_behavior option provided
+    Used inside various methods accepting two pyranges1 as input. It processes strand_behavior option provided
     by the user upon calling the function. This function validates the option and converts it to a valid unambiguous
     value.
     """
@@ -103,7 +103,7 @@ def validate_and_convert_strand_behavior(
                 warnings.warn(msg, stacklevel=4)
 
         elif strand_behavior in (STRAND_BEHAVIOR_SAME, STRAND_BEHAVIOR_OPPOSITE):
-            msg = f"Can only do {strand_behavior} strand operations when both PyRanges contain valid strand info."
+            msg = f"Can only do {strand_behavior} strand operations when both pyranges1contain valid strand info."
             raise ValueError(msg)
     elif strand_behavior == STRAND_BEHAVIOR_AUTO:
         strand_behavior = STRAND_BEHAVIOR_SAME
@@ -153,7 +153,7 @@ def use_strand_from_validated_strand_behavior(
 ) -> bool:
     """Return use_strand based on strand_behavior.
 
-    If strand_behavior is 'ignore', returns False, otherwise True if both PyRanges contain valid strand info.
+    If strand_behavior is 'ignore', returns False, otherwise True if both pyranges1contain valid strand info.
 
     This function must be used with strand_behavior validated and converted to either 'same', 'opposite' or 'ignore'.
     """
@@ -162,11 +162,11 @@ def use_strand_from_validated_strand_behavior(
 
 
 def mypy_ensure_pyranges(df: "pd.DataFrame") -> "PyRanges":
-    """Ensure df is a PyRanges.
+    """Ensure df is a pyranges1.
 
     Helps mypy.
     """
-    from pyranges import PyRanges
+    from pyranges1 import PyRanges
 
     if not isinstance(ret := PyRanges(df), PyRanges):
         msg = "Not a PyRanges"

@@ -1,7 +1,7 @@
 import pandas as pd
 from sorted_nearest import annotate_clusters  # type: ignore[import]
 
-from pyranges.core.names import END_COL, START_COL
+from pyranges1.core.names import END_COL, START_COL
 
 
 def _cluster(
@@ -16,7 +16,7 @@ def _cluster(
 
     # important: sorted_nearest interprets slack differently than pyranges
     # 0 slack in sorted_nearest means that bookended intervals are clustered
-    # together, while in pyranges it means that they are not.
+    # together, while in pyranges1it means that they are not.
     ids = annotate_clusters(df[START_COL].to_numpy(), df[END_COL].to_numpy(), slack=slack - 1)
 
     df.insert(df.shape[1], cluster_column, ids)
